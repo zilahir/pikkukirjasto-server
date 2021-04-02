@@ -1,0 +1,12 @@
+version: "3"
+services:
+  sda_mongo:
+    image: mongo:latest
+    ports:
+      - "27025:27017"
+    networks:
+      main:
+        aliases:
+          - mongo
+networks:
+  main:
