@@ -3,15 +3,16 @@ import HttpStatusCodes from "http-status-codes";
 import IsbnApi from 'node-isbn'
 
 import Request from '../../src/types/Request'
-import { IBooks, insert } from '../models/books.models'
+import { allBooks, IBooks, insert } from '../models/books.models'
 
 
 export function insertNewBook (request: Request, response: Response) {
-  const { isbn, title, author } = request.body
+  const { isbn, title, author, cover } = request.body
   const newBookPayload = {
     isbn,
     title,
     author,
+    cover,
   }
   insert(newBookPayload).then((result: IBooks) => {
     response.status(HttpStatusCodes.OK).send(result)
@@ -31,5 +32,11 @@ export function searchForIsbn (request: Request, response: Response) {
           ...book,
         })
     }
+  })
+}
+
+export function getAllBooks (request: Request, response: Response) {
+  allBooks().then(result => {
+    response.status(HttpStatusCodes.OK).send(result)
   })
 }

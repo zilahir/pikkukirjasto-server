@@ -5,25 +5,30 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-import { IBooks } from "../../../books/models/books.models"
-
 export interface IFile extends Document {
-  book?: IBooks["_id"],
+  isbn: string,
   url: string,
+  createdAt: string | Date,
 }
 
 export interface File {
   url: string,
+  isbn: string,
+  createdAt: string | Date,
 }
 
 const fileSchema: Schema = new Schema({
-  book: {
-    type: Schema.Types.ObjectId,
-    ref: "Book"
+  isbn: {
+    type: String,
+    required: true,
   },
   url: {
     type: String,
-    requiired: true,
+    required: true,
+  },
+  createdAt: {
+    type: String,
+    required: true,
   }
 })
 
@@ -43,7 +48,7 @@ export const uploadFile = (req: any) => {
 
 		const params = {
 			Bucket: process.env.AWS_BUCKET,
-			Key: req.files.image.name,
+			Key: `${req.files.image.name}`,
 			Body: req.files.image.data,
 			ACL: 'public-read'
 		}
@@ -52,14 +57,24 @@ export const uploadFile = (req: any) => {
 			if(err) {
 				throw err;
 			} else {
+        const isbn = req.files.image.name.split('__')[0]
         insertFile({
           url: data.Location,
+          isbn,
+          createdAt: new Date(),
+        }).then(() => {
+          resolve({
+            url: data.Location,
+          })
         })
 			}
 		})
-		
-		resolve(true)
+	
 	})
+}
+
+export const getAll = () => {
+  return File.find({})
 }
 
 export default File
