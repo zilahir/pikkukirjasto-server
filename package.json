@@ -27,6 +27,9 @@
     "mongoose": "^5.12.3",
     "node-isbn": "^1.6.1",
     "request": "^2.88.0",
+    "serverless-http": "^2.7.0",
+    "serverless-offline": "^6.9.0",
+    "serverless-plugin-typescript": "^1.1.9",
     "shortid": "^2.2.16",
     "typescript": "^3.4.5",
     "uuid": "^8.3.2"

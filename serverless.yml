@@ -1,0 +1,28 @@
+service: pikkukirjasto
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: eu-west-1
+  memorySize: 128
+package:
+  exclude:
+    - venv/**
+    - data/**
+  include:
+    ./src/server.ts
+functions:
+  pikkukirjasto:
+    handler: ./src/server.handler
+    events: 
+      - http: 
+          path: /
+          method: ANY
+          cors: true
+      - http: 
+          path: /{proxy+}
+          method: ANY
+          cors: true
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
