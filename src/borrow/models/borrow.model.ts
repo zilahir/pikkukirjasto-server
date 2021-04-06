@@ -44,6 +44,13 @@ export const setBookAsReturned = (isbn: string) => {
   })
 }
 
+export const returnBorrowStatus = (isbn: string) => {
+  return Borrow.findOne({
+    isbn,
+    isBorrowed: true,
+  })
+}
+
 
 const borrowSchema: Schema = new Schema({
   isbn: {

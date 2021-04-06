@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createNewBorrow, getBorrowHistroy, returnBook } from "../../borrow/controllers/borrow.controller";
+import { createNewBorrow, getBorrowHistroy, returnBook, chechBorrowStatus } from "../../borrow/controllers/borrow.controller";
 
 const router: Router = Router()
 
@@ -13,6 +13,10 @@ router.get('/all', [
 
 router.patch('/return', [
   returnBook
+])
+
+router.get('/status/:isbn', [
+  chechBorrowStatus
 ])
 
 export default router
