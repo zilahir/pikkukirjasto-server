@@ -4,4 +4,6 @@
  */
 type payload = { userId: string };
 
+export type bookModifyPayload = { isbn: string};
+
 export default payload;

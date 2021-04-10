@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { getAllFiles } from "../../file/controllers/file.controller";
-import { getAllBooks, insertNewBook, searchForIsbn } from '../../../books/controllers/books.controller'
+import { getAllBooks, insertNewBook, patchBook, searchForIsbn } from '../../../books/controllers/books.controller'
 
 const router: Router = Router()
 
@@ -20,5 +20,11 @@ router.get('/files', [
 router.get('/all', [
   getAllBooks,
 ])
+
+router.patch('/:isbn', [
+  patchBook,
+])
+
+
 
 export default router;
