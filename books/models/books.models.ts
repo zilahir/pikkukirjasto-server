@@ -65,4 +65,10 @@ export const modifyBook = (isbn: string, payload: Book) => {
   })
 }
 
+export const removeBook = (isbn: string) => {
+  return Book.deleteOne({
+    isbn
+  })
+}
+
 export default Book;

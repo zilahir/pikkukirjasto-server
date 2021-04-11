@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { getAllFiles } from "../../file/controllers/file.controller";
-import { getAllBooks, insertNewBook, patchBook, searchForIsbn } from '../../../books/controllers/books.controller'
+import { deleteBook, getAllBooks, insertNewBook, patchBook, searchForIsbn } from '../../../books/controllers/books.controller'
 
 const router: Router = Router()
 
@@ -23,6 +23,10 @@ router.get('/all', [
 
 router.patch('/:isbn', [
   patchBook,
+])
+
+router.delete('/:isbn', [
+  deleteBook,
 ])
 
 

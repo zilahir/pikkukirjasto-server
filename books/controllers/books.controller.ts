@@ -4,7 +4,7 @@ import IsbnApi from 'node-isbn'
 import { bookModifyPayload } from "Payload";
 
 import Request from '../../src/types/Request'
-import { allBooks, IBooks, insert, modifyBook } from '../models/books.models'
+import { allBooks, IBooks, insert, modifyBook, removeBook } from '../models/books.models'
 
 
 export function insertNewBook (request: Request, response: Response) {
@@ -44,8 +44,16 @@ export function getAllBooks (request: Request, response: Response) {
 
 export function patchBook (request: (Request & bookModifyPayload), response: Response) {
   const { isbn } = request.params
-  console.debug('isbn', isbn)
   modifyBook(isbn, request.body).then(result => {
     response.status(HttpStatusCodes.OK).send(result)
+  })
+}
+
+export function deleteBook (request: (Request & bookModifyPayload), response: Response) {
+  const { isbn } = request.params
+  removeBook(isbn).then(() => {
+    response.status(HttpStatusCodes.OK).send({
+      success: true,
+    })
   })
 }
