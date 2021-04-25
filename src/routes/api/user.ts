@@ -5,11 +5,13 @@ import { check, validationResult } from "express-validator/check";
 import gravatar from "gravatar";
 import HttpStatusCodes from "http-status-codes";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
 
 import Payload from "../../types/Payload";
 import Request from "../../types/Request";
 import User, { IUser } from "../../models/User";
 
+dotenv.config()
 const router: Router = Router();
 
 // @route   POST api/user
@@ -74,7 +76,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        process.env.JWT_SECRET,
         { expiresIn: config.get("jwtExpiration") },
         (err, token) => {
           if (err) throw err;
